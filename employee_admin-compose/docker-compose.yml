@@ -1,18 +1,18 @@
 version: '2'
 services:
-  backend:
+  employee_admin:
     build: 
-    context: employee_admin
-    args:
-      PROJECT_NAME: employee_admin
-      PROJECT_VERSION: 1.0-SNAPSHOT
+      context: employee_admin
+      args:
+        PROJECT_NAME: employee_admin
+        PROJECT_VERSION: 1.0-SNAPSHOT
     networks:
       - backend
       - frontend
     depends_on:
       - "redis"
     environment:
-      - TEXT_PREFIX=hello
+      - MYSQL_HOST=123.123.123
   frontend:
     build: frontend
     ports:
@@ -22,7 +22,10 @@ services:
     volumes:
        - ./frontend/app:/app
     depends_on:
-      - "backend"
+      - "employee_admin"
+    environment:
+      - TEXT_PREFIX=Prefisso
+      - BACKEND_HOST=employee_admin
   redis:
     image: redis:alpine
     networks:
