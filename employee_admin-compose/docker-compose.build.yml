@@ -1,0 +1,10 @@
+version: '2'
+services:
+  backend:
+    image: maven:3.2-jdk-8
+    command: mvn clean install
+    volumes:
+       - ./employee_admin:/usr/src/mymaven
+    working_dir: /usr/src/mymaven
+
+ 
